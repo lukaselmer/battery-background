@@ -21,14 +21,58 @@
 
             var body = $("body")
             body.wrapInner("<div id='battery-background-inlay' />")
-            var bbi = $("#battery-background-inlay")
-            var style = css(body);
-            bbi.css(style);
 
-            body.css({ width: '100% !important', height: '100% !important', margin: 0})
-            body.css({background: "#00000"})
+            var bbi = $("#battery-background-inlay");
+
+            bbi.copyCSS(body);
+            bbi.css({ width: '100%', height: '100%', margin: 0, display: "block" });
+            body.css({width: '100%', height: '100%', padding: 0, background: "#000000"});
 
         });
+
+        $.fn.copyCSS = function (source) {
+            var dom = $(source).get(0);
+            var dest = {};
+            var style, prop;
+            if (window.getComputedStyle) {
+                var camelize = function (a, b) {
+                    return b.toUpperCase();
+                };
+                if (style = window.getComputedStyle(dom, null)) {
+                    var camel, val;
+                    if (style.length) {
+                        for (var i = 0, l = style.length; i < l; i++) {
+                            prop = style[i];
+                            camel = prop.replace(/\-([a-z])/, camelize);
+                            val = style.getPropertyValue(prop);
+                            dest[camel] = val;
+                        }
+                    } else {
+                        for (prop in style) {
+                            camel = prop.replace(/\-([a-z])/, camelize);
+                            val = style.getPropertyValue(prop) || style[prop];
+                            dest[camel] = val;
+                        }
+                    }
+                    return this.css(dest);
+                }
+            }
+            if (style = dom.currentStyle) {
+                for (prop in style) {
+                    dest[prop] = style[prop];
+                }
+                return this.css(dest);
+            }
+            if (style = dom.style) {
+                for (prop in style) {
+                    if (typeof style[prop] != 'function') {
+                        dest[prop] = style[prop];
+                    }
+                }
+            }
+            return this.css(dest);
+        };
+
         //
         //        function ColorLuminance(color, lum) {
         //
@@ -79,20 +123,20 @@
 //            });
 
             var bbi = $("#battery-background-inlay")
-            bbi.fadeTo(100, factor);
+            bbi.fadeTo(10, factor);
         }
 
     </script>
 </head>
 <body style="background-color: #2b81af;">
 
-    <h1 style="">Test</h1>
+<h1 style="">Test</h1>
 
 
-    <div id="slider"></div>
+<div id="slider"></div>
 
-    <button onclick="updateColors(0.1)">Lighter</button>
-    <button onclick="updateColors(-0.1)">Darker</button>
+<button onclick="updateColors(0.1)">Lighter</button>
+<button onclick="updateColors(-0.1)">Darker</button>
 
 
 </body>
