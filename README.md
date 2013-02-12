@@ -9,6 +9,6 @@ Usage:
 Coffeescript Compiler
 
 ```bash
-coffee --watch --compile --join javascript/application.js javascript/*.coffee
+coffee --watch --compile --join build/battery-background.js src/*.coffee
+coffee --watch --compile --join test/test.js tests/*.coffee
 ```
-
