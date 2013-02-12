@@ -1,5 +1,3 @@
-batteryBackground = @batteryBackground || {}
-
 batteryBackground =
   defaults:
     backgroundSelector: "body"
@@ -22,4 +20,7 @@ batteryBackground =
   battery_api_availible: () ->
     !!@battery
 
-@batteryBackground = batteryBackground
+@batteryBackground ||= {}
+
+for property, value of batteryBackground
+  @batteryBackground[property] = value
