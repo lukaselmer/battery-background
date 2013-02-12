@@ -48,7 +48,7 @@
       battery.addEventListener("chargingchange", checkBatteryStatus, false);
       battery.addEventListener("levelchange", checkBatteryStatus, false);
       checkBatteryStatus();
-      $(document).idleTimer(5000);
+      $(document).idleTimer(4000);
       overlay = $('<div class="ui-overlay"><div class="ui-widget-overlay"></div></div>').hide().appendTo('body');
       $(document).on("idle.idleTimer", function() {
         if (!battery.charging) {
