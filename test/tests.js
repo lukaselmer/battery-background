@@ -15,7 +15,7 @@
     ok(batteryBackground.init({
       selector: "body"
     }));
-    return batteryBackground.battery_api_availible != null;
+    return batteryBackground.battery_api_availible;
   });
 
 }).call(this);

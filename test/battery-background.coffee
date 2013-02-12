@@ -6,4 +6,4 @@ test "should initialize battery-background", () ->
 
 test "battery api should be availible (in firefox >=19.0)", () ->
   ok(batteryBackground.init(selector: "body"))
-  batteryBackground.battery_api_availible?
+  batteryBackground.battery_api_availible
