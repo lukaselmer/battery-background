@@ -66,7 +66,7 @@
       return console.log("discharging" + battery.level);
     };
 
-    BatterSavingByTimeout.prototype.charging = function() {
+    BatterSavingByTimeout.prototype.charging = function(battery) {
       return console.log("charging" + battery.level);
     };
 
@@ -82,7 +82,7 @@
       return console.log("discharging" + battery.level);
     };
 
-    BatterSavingByBackgroundAdjustment.prototype.charging = function() {
+    BatterSavingByBackgroundAdjustment.prototype.charging = function(battery) {
       return console.log("charging" + battery.level);
     };
 
@@ -145,8 +145,6 @@
   })();
 
   batterySavingFacade = new BatterySavingFacade();
-
-  console.log(batterySavingFacade.count());
 
   this.batteryBackground || (this.batteryBackground = {});
 

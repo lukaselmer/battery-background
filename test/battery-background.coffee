@@ -31,7 +31,7 @@ test "should call charging or discharging methods", () ->
   class BatterSavingMock
     discharging: (battery) ->
       discharging_called += 1
-    charging: () ->
+    charging: (battery) ->
       charging_called += 1
 
   batteryBackground.batterySavingStrategy.removeAll()
