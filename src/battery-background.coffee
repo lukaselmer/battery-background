@@ -37,14 +37,21 @@ batteryBackground =
     checkBatteryStatus()
 
     #$(document).idleTimer()
-    #$( document ).idleTimer( 1000 )
-    #$( document ).on "idle.idleTimer", () ->
-    #$( document ).on "active.idleTimer", () ->
+    $(document).idleTimer(5000)
 
+    overlay = $('<div class="ui-overlay"><div class="ui-widget-overlay"></div></div>').hide().appendTo('body')
+    $(document).on "idle.idleTimer", () ->
+      overlay.fadeIn() unless battery.charging
+
+      $(window).resize () ->
+        overlay.width($(document).width())
+        overlay.height($(document).height())
+
+    $(document).on "active.idleTimer", () ->
+      overlay.fadeOut();
 
 
 @batteryBackground ||= {}
 
 for property, value of batteryBackground
   @batteryBackground[property] = value
-

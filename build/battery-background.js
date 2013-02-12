@@ -34,7 +34,7 @@
       return !!this.battery;
     },
     registerBatteryListeners: function() {
-      var battery, checkBatteryStatus, strategy;
+      var battery, checkBatteryStatus, overlay, strategy;
       battery = this.battery;
       strategy = this.batterySavingStrategy;
       checkBatteryStatus = function() {
@@ -47,7 +47,21 @@
       setInterval(checkBatteryStatus, 60000);
       battery.addEventListener("chargingchange", checkBatteryStatus, false);
       battery.addEventListener("levelchange", checkBatteryStatus, false);
-      return checkBatteryStatus();
+      checkBatteryStatus();
+      $(document).idleTimer(5000);
+      overlay = $('<div class="ui-overlay"><div class="ui-widget-overlay"></div></div>').hide().appendTo('body');
+      $(document).on("idle.idleTimer", function() {
+        if (!battery.charging) {
+          overlay.fadeIn();
+        }
+        return $(window).resize(function() {
+          overlay.width($(document).width());
+          return overlay.height($(document).height());
+        });
+      });
+      return $(document).on("active.idleTimer", function() {
+        return overlay.fadeOut();
+      });
     }
   };
 
