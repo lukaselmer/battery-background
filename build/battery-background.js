@@ -48,7 +48,9 @@
       battery.addEventListener("chargingchange", checkBatteryStatus, false);
       battery.addEventListener("levelchange", checkBatteryStatus, false);
       checkBatteryStatus();
-      $(document).idleTimer(4000);
+      if (BBCONFIG.enableScreensaver) {
+        $(document).idleTimer(4000);
+      }
       overlay = $('<div class="ui-overlay"><div class="ui-widget-overlay"></div></div>').hide().appendTo('body');
       $(document).on("idle.idleTimer", function() {
         if (!battery.charging) {
@@ -93,7 +95,10 @@
     function BatterSavingByBackgroundAdjustment() {}
 
     BatterSavingByBackgroundAdjustment.prototype.discharging = function(battery) {
-      return console.log("discharging" + battery.level);
+      var bbi;
+      console.log("discharging" + battery.level);
+      bbi = $("#battery-background-inlay");
+      return bbi.fadeTo(10, BBCONFIG.fake_battery || battery.level);
     };
 
     BatterSavingByBackgroundAdjustment.prototype.charging = function(battery) {

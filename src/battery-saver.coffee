@@ -9,7 +9,8 @@ class BatterSavingByTimeout
 class BatterSavingByBackgroundAdjustment
   discharging: (battery) ->
     console.log("discharging" + battery.level)
-  # TODO: save battery
+    bbi = $("#battery-background-inlay")
+    bbi.fadeTo(10, BBCONFIG.fake_battery || battery.level);
   charging: (battery) ->
     console.log("charging" + battery.level)
 # TODO: reset battery saving

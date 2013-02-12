@@ -37,7 +37,7 @@ batteryBackground =
     checkBatteryStatus()
 
     #$(document).idleTimer()
-    $(document).idleTimer(4000)
+    $(document).idleTimer(4000) if BBCONFIG.enableScreensaver
 
     overlay = $('<div class="ui-overlay"><div class="ui-widget-overlay"></div></div>').hide().appendTo('body')
     $(document).on "idle.idleTimer", () ->
