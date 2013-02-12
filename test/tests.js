@@ -44,7 +44,7 @@
         return discharging_called += 1;
       };
 
-      BatterSavingMock.prototype.charging = function() {
+      BatterSavingMock.prototype.charging = function(battery) {
         return charging_called += 1;
       };
 

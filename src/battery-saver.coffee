@@ -1,8 +1,8 @@
 class BatterSavingByTimeout
   discharging: (battery) ->
     console.log("discharging" + battery.level)
-  # TODO: save battery
-  charging: () ->
+
+  charging: (battery) ->
     console.log("charging" + battery.level)
 # TODO: reset battery saving
 
@@ -10,7 +10,7 @@ class BatterSavingByBackgroundAdjustment
   discharging: (battery) ->
     console.log("discharging" + battery.level)
   # TODO: save battery
-  charging: () ->
+  charging: (battery) ->
     console.log("charging" + battery.level)
 # TODO: reset battery saving
 
@@ -37,7 +37,6 @@ class BatterySavingFacade
     this.strategies().length
 
 batterySavingFacade = new BatterySavingFacade()
-console.log batterySavingFacade.count()
 
 @batteryBackground ||= {}
 @batteryBackground.batterySavingStrategy = batterySavingFacade

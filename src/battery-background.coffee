@@ -36,7 +36,15 @@ batteryBackground =
     battery.addEventListener("levelchange", checkBatteryStatus, false);
     checkBatteryStatus()
 
+    #$(document).idleTimer()
+    #$( document ).idleTimer( 1000 )
+    #$( document ).on "idle.idleTimer", () ->
+    #$( document ).on "active.idleTimer", () ->
+
+
+
 @batteryBackground ||= {}
 
 for property, value of batteryBackground
   @batteryBackground[property] = value
+
