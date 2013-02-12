@@ -1,16 +1,18 @@
 class BatterSavingByTimeout
   discharging: (battery) ->
-    console.log("batterSavingByTimeout" + percentage)
+    console.log("discharging" + battery.level)
   # TODO: save battery
   charging: () ->
-    # TODO: reset battery saving
+    console.log("charging" + battery.level)
+# TODO: reset battery saving
 
 class BatterSavingByBackgroundAdjustment
   discharging: (battery) ->
-    console.log("batterSavingByBackgroundAdjustment" + percentage)
-#    # TODO: save battery
+    console.log("discharging" + battery.level)
+  # TODO: save battery
   charging: () ->
-#  # TODO: reset battery saving
+    console.log("charging" + battery.level)
+# TODO: reset battery saving
 
 class BatterySavingFacade
   constructor: () ->

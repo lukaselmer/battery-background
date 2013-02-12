@@ -15,6 +15,7 @@
         return false;
       }
       this.initConfig(config);
+      this.registerBatteryListeners();
       return this;
     },
     initConfig: function(config) {
@@ -31,6 +32,22 @@
     },
     battery_api_availible: function() {
       return !!this.battery;
+    },
+    registerBatteryListeners: function() {
+      var battery, checkBatteryStatus, strategy;
+      battery = this.battery;
+      strategy = this.batterySavingStrategy;
+      checkBatteryStatus = function() {
+        if (battery.charging) {
+          return strategy.charging(battery);
+        } else {
+          return strategy.discharging(battery);
+        }
+      };
+      setInterval(checkBatteryStatus, 60000);
+      battery.addEventListener("chargingchange", checkBatteryStatus, false);
+      battery.addEventListener("levelchange", checkBatteryStatus, false);
+      return checkBatteryStatus();
     }
   };
 
@@ -46,10 +63,12 @@
     function BatterSavingByTimeout() {}
 
     BatterSavingByTimeout.prototype.discharging = function(battery) {
-      return console.log("batterSavingByTimeout" + percentage);
+      return console.log("discharging" + battery.level);
     };
 
-    BatterSavingByTimeout.prototype.charging = function() {};
+    BatterSavingByTimeout.prototype.charging = function() {
+      return console.log("charging" + battery.level);
+    };
 
     return BatterSavingByTimeout;
 
@@ -60,10 +79,12 @@
     function BatterSavingByBackgroundAdjustment() {}
 
     BatterSavingByBackgroundAdjustment.prototype.discharging = function(battery) {
-      return console.log("batterSavingByBackgroundAdjustment" + percentage);
+      return console.log("discharging" + battery.level);
     };
 
-    BatterSavingByBackgroundAdjustment.prototype.charging = function() {};
+    BatterSavingByBackgroundAdjustment.prototype.charging = function() {
+      return console.log("charging" + battery.level);
+    };
 
     return BatterSavingByBackgroundAdjustment;
 

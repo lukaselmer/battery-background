@@ -9,6 +9,7 @@ batteryBackground =
     @battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery
     return false unless this.battery_api_availible()
     this.initConfig(config)
+    this.registerBatteryListeners()
     this
 
   initConfig: (config) ->
@@ -19,6 +20,21 @@ batteryBackground =
 
   battery_api_availible: () ->
     !!@battery
+
+  registerBatteryListeners: () ->
+    battery = @battery
+    strategy = this.batterySavingStrategy
+
+    checkBatteryStatus = () ->
+      if battery.charging
+        strategy.charging(battery)
+      else
+        strategy.discharging(battery)
+
+    setInterval(checkBatteryStatus, 60000)
+    battery.addEventListener("chargingchange", checkBatteryStatus, false);
+    battery.addEventListener("levelchange", checkBatteryStatus, false);
+    checkBatteryStatus()
 
 @batteryBackground ||= {}
 
