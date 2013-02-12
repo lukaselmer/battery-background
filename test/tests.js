@@ -5,4 +5,17 @@
     return ok(batteryBackground, "");
   });
 
+  test("should initialize battery-background", function() {
+    return ok(batteryBackground.init({
+      selector: "body"
+    }));
+  });
+
+  test("battery api should be availible (in firefox >=19.0)", function() {
+    ok(batteryBackground.init({
+      selector: "body"
+    }));
+    return batteryBackground.battery_api_availible != null;
+  });
+
 }).call(this);

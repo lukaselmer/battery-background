@@ -1,7 +1,11 @@
-if @batteryBackground
-  console.log "Naming collision detected: batteryBackground already definded."
-
 @batteryBackground = {}
 @batteryBackground.init = (settings) ->
-  console.log settings
+  @battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery
+  #console.log settings
+  #document.querySelector('#charging')
+@batteryBackground.defaults =
+  background_selector: "body"
+@batteryBackground.battery_api_availible? () ->
+  !!@battery
+
 
