@@ -1,11 +1,11 @@
-batterSavingByTimeout =
+class BatterSavingByTimeout
   discharging: (battery) ->
     console.log("batterSavingByTimeout" + percentage)
   # TODO: save battery
   charging: () ->
     # TODO: reset battery saving
 
-batterSavingByBackgroundAdjustment =
+class BatterSavingByBackgroundAdjustment
   discharging: (battery) ->
     console.log("batterSavingByBackgroundAdjustment" + percentage)
 #    # TODO: save battery
@@ -13,6 +13,11 @@ batterSavingByBackgroundAdjustment =
 #  # TODO: reset battery saving
 
 class BatterySavingFacade
+  constructor: () ->
+    this.init()
+  init: () ->
+    this.add(new BatterSavingByTimeout())
+    this.add(new BatterSavingByBackgroundAdjustment())
   strategies: () ->
     @batterySavingStrategies ||= []
     @batterySavingStrategies
@@ -22,16 +27,14 @@ class BatterySavingFacade
     @batterySavingStrategies = []
   discharging: (battery) ->
     for strategy in this.strategies()
-      strategy.charging()
+      strategy.discharging(battery)
   charging: (battery) ->
     for strategy in this.strategies()
-      strategy.charging()
+      strategy.charging(battery)
   count: () ->
     this.strategies().length
 
 batterySavingFacade = new BatterySavingFacade()
-batterySavingFacade.add(batterSavingByTimeout)
-batterySavingFacade.add(batterSavingByBackgroundAdjustment)
 console.log batterySavingFacade.count()
 
 @batteryBackground ||= {}
