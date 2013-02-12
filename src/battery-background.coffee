@@ -37,7 +37,7 @@ batteryBackground =
     checkBatteryStatus()
 
     #$(document).idleTimer()
-    $(document).idleTimer(5000)
+    $(document).idleTimer(4000)
 
     overlay = $('<div class="ui-overlay"><div class="ui-widget-overlay"></div></div>').hide().appendTo('body')
     $(document).on "idle.idleTimer", () ->
