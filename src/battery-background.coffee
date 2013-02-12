@@ -1,31 +1,25 @@
+batteryBackground = @batteryBackground || {}
+
 batteryBackground =
-  {}
+  defaults:
+    backgroundSelector: "body"
 
-batteryBackground.defaults =
-  backgroundSelector: "body"
-  querySelector: document.querySelector
+  backgroundSelector: () ->
+    @config['backgroundSelector']
 
-batteryBackground.backgroundSelector = () ->
-  @config['backgroundSelector']
+  init: (config) ->
+    @battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery
+    return false unless this.battery_api_availible()
+    this.initConfig(config)
+    this
 
-batteryBackground.init = (config) ->
-  @battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery
-  return false unless this.battery_api_availible()
+  initConfig: (config) ->
+    @config = this.defaults
+    if config
+      for property, value of config
+        @config[property] = value
 
-  @config = this.defaults
-
-
-  #console.log document.querySelector("body")
-
-  console.log @config.querySelector
-  if config
-    for property, value of config
-      @config[property] = value
-
-  #@config['querySelector'](this.backgroundSelector())
-  this
-
-batteryBackground.battery_api_availible = () ->
-  !!@battery
+  battery_api_availible: () ->
+    !!@battery
 
 @batteryBackground = batteryBackground

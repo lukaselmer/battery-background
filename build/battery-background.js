@@ -2,36 +2,38 @@
 (function() {
   var batteryBackground;
 
-  batteryBackground = {};
+  batteryBackground = this.batteryBackground || {};
 
-  batteryBackground.defaults = {
-    backgroundSelector: "body",
-    querySelector: document.querySelector
-  };
-
-  batteryBackground.backgroundSelector = function() {
-    return this.config['backgroundSelector'];
-  };
-
-  batteryBackground.init = function(config) {
-    var property, value;
-    this.battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
-    if (!this.battery_api_availible()) {
-      return false;
-    }
-    this.config = this.defaults;
-    console.log(this.config.querySelector);
-    if (config) {
-      for (property in config) {
-        value = config[property];
-        this.config[property] = value;
+  batteryBackground = {
+    defaults: {
+      backgroundSelector: "body"
+    },
+    backgroundSelector: function() {
+      return this.config['backgroundSelector'];
+    },
+    init: function(config) {
+      this.battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
+      if (!this.battery_api_availible()) {
+        return false;
       }
+      this.initConfig(config);
+      return this;
+    },
+    initConfig: function(config) {
+      var property, value, _results;
+      this.config = this.defaults;
+      if (config) {
+        _results = [];
+        for (property in config) {
+          value = config[property];
+          _results.push(this.config[property] = value);
+        }
+        return _results;
+      }
+    },
+    battery_api_availible: function() {
+      return !!this.battery;
     }
-    return this;
-  };
-
-  batteryBackground.battery_api_availible = function() {
-    return !!this.battery;
   };
 
   this.batteryBackground = batteryBackground;
