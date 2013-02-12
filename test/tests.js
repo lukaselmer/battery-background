@@ -26,4 +26,9 @@
     return ok(batteryBackground.backgroundSelector() === "test");
   });
 
+  test("should have two batterySavingStrategies", function() {
+    batteryBackground.init();
+    return ok(batteryBackground.batterySavingStrategy.count() === 2);
+  });
+
 }).call(this);

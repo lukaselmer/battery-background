@@ -16,3 +16,8 @@ test "should override selecor in config battery-background", () ->
   batteryBackground.init(backgroundSelector: "test")
   ok(batteryBackground.backgroundSelector() == "test")
 
+
+test "should have two batterySavingStrategies", () ->
+  batteryBackground.init()
+  ok(batteryBackground.batterySavingStrategy.count() == 2)
+
