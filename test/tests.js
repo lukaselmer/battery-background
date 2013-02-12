@@ -10,22 +10,20 @@
   });
 
   test("battery api should be availible (in firefox >=19.0)", function() {
-    ok(batteryBackground.init({
-      selector: "body"
-    }));
+    ok(batteryBackground.init());
     return batteryBackground.battery_api_availible;
   });
 
   test("should initialize default settings", function() {
     batteryBackground.init();
-    return ok(batteryBackground.selector() === "body");
+    return ok(batteryBackground.backgroundSelector() === "body");
   });
 
   test("should override selecor in config battery-background", function() {
     batteryBackground.init({
-      selector: "test"
+      backgroundSelector: "test"
     });
-    return ok(batteryBackground.selector() === "test");
+    return ok(batteryBackground.backgroundSelector() === "test");
   });
 
 }).call(this);

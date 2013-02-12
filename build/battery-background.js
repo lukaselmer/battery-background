@@ -5,11 +5,12 @@
   batteryBackground = {};
 
   batteryBackground.defaults = {
-    selector: "body"
+    backgroundSelector: "body",
+    querySelector: document.querySelector
   };
 
-  batteryBackground.selector = function() {
-    return this.config['selector'];
+  batteryBackground.backgroundSelector = function() {
+    return this.config['backgroundSelector'];
   };
 
   batteryBackground.init = function(config) {
@@ -19,6 +20,7 @@
       return false;
     }
     this.config = this.defaults;
+    console.log(this.config.querySelector);
     if (config) {
       for (property in config) {
         value = config[property];
