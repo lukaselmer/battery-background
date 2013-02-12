@@ -5,16 +5,26 @@
   batteryBackground = {};
 
   batteryBackground.defaults = {
-    background_selector: "body"
+    selector: "body"
   };
 
-  batteryBackground.init = function(settings) {
+  batteryBackground.selector = function() {
+    return this.config['selector'];
+  };
+
+  batteryBackground.init = function(config) {
+    var property, value;
     this.battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
     if (!this.battery_api_availible()) {
       return false;
     }
-    console.log(settings);
-    document.querySelector('#charging');
+    this.config = this.defaults;
+    if (config) {
+      for (property in config) {
+        value = config[property];
+        this.config[property] = value;
+      }
+    }
     return this;
   };
 

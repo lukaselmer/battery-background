@@ -6,9 +6,7 @@
   });
 
   test("should initialize battery-background", function() {
-    return ok(batteryBackground.init({
-      selector: "body"
-    }));
+    return ok(batteryBackground.init());
   });
 
   test("battery api should be availible (in firefox >=19.0)", function() {
@@ -16,6 +14,18 @@
       selector: "body"
     }));
     return batteryBackground.battery_api_availible;
+  });
+
+  test("should initialize default settings", function() {
+    batteryBackground.init();
+    return ok(batteryBackground.selector() === "body");
+  });
+
+  test("should override selecor in config battery-background", function() {
+    batteryBackground.init({
+      selector: "test"
+    });
+    return ok(batteryBackground.selector() === "test");
   });
 
 }).call(this);

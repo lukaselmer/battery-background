@@ -2,13 +2,25 @@ batteryBackground =
   {}
 
 batteryBackground.defaults =
-  background_selector: "body"
+  selector: "body"
 
-batteryBackground.init = (settings) ->
+batteryBackground.selector = () ->
+  @config['selector']
+
+#batteryBackground.config = () ->
+#  @config
+
+batteryBackground.init = (config) ->
   @battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery
   return false unless this.battery_api_availible()
-  console.log settings
-  document.querySelector('#charging')
+
+  @config = this.defaults
+
+  if config
+    for property, value of config
+      @config[property] = value
+
+  #document.querySelector('#charging')
   this
 
 batteryBackground.battery_api_availible = () ->
